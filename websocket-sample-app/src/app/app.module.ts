@@ -3,13 +3,13 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { WebsocketService } from './websocket.service';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { SseService } from './services/sse.service';
 @NgModule({
   declarations: [AppComponent],
   imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule],
-  providers: [WebsocketService],
+  providers: [SseService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

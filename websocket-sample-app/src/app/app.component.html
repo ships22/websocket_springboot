@@ -1,7 +1,9 @@
 <div class="main">
-  <h1>***Angular Websocket testing app***</h1>
-  <section class="input_grp">
-    <input type="text" [(ngModel)]="userName" />
-    <button (click)="register()">Register</button>
+  <section>
+    <h1>SSE Test</h1>
+    <h2>User id is : {{ userId }}</h2>
+    <span *ngFor="let info of data">
+      <h2>{{ info?.title }}</h2>
+    </span>
   </section>
 </div>

@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { WebsocketService } from './websocket.service';
-
+import { SseService } from './services/sse.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -9,32 +8,23 @@ import { WebsocketService } from './websocket.service';
 export class AppComponent {
   greeting: any;
   name: string;
+  subscription$: any;
+  userId: any;
 
   title = 'websocket-sample-app';
   userName: any;
-  constructor(private websocketService: WebsocketService) {}
+  data: any = [];
+  constructor(private sseService: SseService) {}
 
-  connect() {
-    this.websocketService._connect();
+  ngOnInit(): void {
+    this.userId = this.sseService.userId;
+    this.getInfo();
   }
 
-  disconnect() {
-    this.websocketService._disconnect();
-  }
-
-  sendMessage() {
-    this.websocketService._send(this.name);
-  }
-
-  handleMessage(message) {
-    this.greeting = message;
-  }
-
-  register() {
-    console.log('userName : ', this.userName);
-    this.websocketService.registration(this.userName).subscribe((res) => {
-      console.log('gistration res : ', res);
-      this.userName = '';
+  getInfo() {
+    this.subscription$ = this.sseService.checkInfo$.subscribe((data) => {
+      this.data.push(JSON.parse(data || null));
+      console.log(this.data);
     });
   }
 }
